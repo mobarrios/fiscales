@@ -13,6 +13,20 @@ import { ModalVotosPage } from '../pages/modal-votos/modal-votos';
 import { MapPage } from '../pages/map/map';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { DbProvider } from '../providers/db/db';
+import { ConnectionProvider } from '../providers/connection/connection';
+
+import { HttpClientModule } from '@angular/common/http';
+
+import { Camera } from '@ionic-native/camera';
+
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+
+
+
+//plugins
+// import { Geolocation } from '@ionic-native/geolocation';
+// import { AgmCoreModule } from '@agm/core';
 
 
 
@@ -28,13 +42,17 @@ import { IonicStorageModule } from '@ionic/storage';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(
     //   {
     //   name: '__mydb',
     //      driverOrder: ['indexeddb', 'sqlite', 'websql']
     // }
-    )
+    ),
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'AIzaSyBL6iZxjchld5wWphF_4FH8926oOsWs2F0'
+    // })
 
   ],
   bootstrap: [IonicApp],
@@ -50,7 +68,12 @@ import { IonicStorageModule } from '@ionic/storage';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ConnectionProvider,
+    Camera,
+    DbProvider,
+    SQLite
+    // Geolocation
   ]
 })
 export class AppModule {}

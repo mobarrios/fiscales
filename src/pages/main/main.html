@@ -6,84 +6,105 @@
 -->
 <ion-header>
     <ion-navbar color="primary">
-        <ion-title>VOTAR</ion-title>
+        <ion-title>
+            <ion-icon name="mail-open"></ion-icon>
+            Votar
+        </ion-title>
     </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-
-    <h4 text-center text-color="primary"> ELECCIONES PRESIDENCIALES 2019 </h4>
-
-    <ion-card>
+    <ion-card *ngFor="let operativo of operativos">
         <ion-card-header text-center>
-            Escuela Normal 28 - Caballito - CABA
+            <strong text-lg>{{operativo.nombre}}</strong>
+        </ion-card-header>
+        <ion-card>
+            <ion-item-divider text-center color="light">
+                <small>Listas</small>
+            </ion-item-divider>
+            <ion-list>
+                <ion-item *ngFor="let lista of operativo.listas">
+                    <ion-thumbnail item-start>
+                        <img src="http://18.229.27.230/votar_back/public/{{lista.partidos.images[0].path}}" width="14px">
+                    </ion-thumbnail>
+                    <h3>{{lista.tipo_operativos.nombre}}</h3>
+                    <h4>{{lista.nombre}}</h4>
+                    <p>{{lista.partidos.nombre}}</p>
+                </ion-item>
+            </ion-list>
+        </ion-card>
+        <ion-card>
+            <div *ngFor="let escuela of operativo.escuelas"></div>
+        </ion-card>
+        <ion-card *ngFor="let escuela of operativo.escuelas">
+            <ion-item-divider text-center color="light">
+                <small>{{escuela.nombre}}</small>
+            </ion-item-divider>
+
+            <button ion-item *ngFor="let mesa of escuela.mesas" (click)="goToMesa(mesa.id, operativo.id)">
+                        <ion-icon color="primary" name="md-clipboard" item-start></ion-icon>
+                        <small>{{mesa.numero}}</small>
+                </button>
+            <ion-row>
+                <!-- <ion-col>
+                    <button (click)="map()" ion-button icon-start clear small>
+                                <ion-icon name="locate"></ion-icon>
+                                <div>Ubicación</div>
+                              </button>
+                </ion-col> -->
+                <!-- <ion-col>
+                    <button ion-button icon-start clear small>
+                                <ion-icon name="text"></ion-icon>
+                                <div>4 Comments</div>
+                              </button>
+                </ion-col>
+                <ion-col align-self-center text-center>
+                    <ion-note>
+                        11h ago
+                    </ion-note>
+                </ion-col> -->
+            </ion-row>
+        </ion-card>
+    </ion-card>
+
+
+    <!-- <div *ngFor="let operativo of operativos">
+        <p>{{operativo.nombre}}</p>
+        <div *ngFor="let escuela of operativo.escuelas">
+            <p>{{escuela.nombre}}</p>
+
+            <div *ngFor="let mesa of escuela.mesas">
+                <p>{{mesa.numero}}</p>
+
+            </div>
+        </div>
+    </div> -->
+
+
+
+    <!-- <ion-item *ngFor="let operativo of operativos">
+        <p>{{operativo.nombre}}</p>
+    </ion-item> -->
+    <!-- <h4 text-center text-color="primary"> ELECCIONES PRESIDENCIALES 2019 </h4> -->
+
+    <!-- <ion-card *ngFor="let escuela of operativo.escuelas">
+        <ion-card-header text-center>
+            {{escuela.nombre}}
+            <p>{{escuela.direccion}}</p>
         </ion-card-header>
 
         <ion-list>
-            <button ion-item (click)="goToMesa()">
-                  <ion-icon name="md-clipboard" ></ion-icon>
-                  Mesa 14 
-                </button>
-
-            <button ion-item>
-                  <ion-icon name="md-clipboard" ></ion-icon>
-                    Mesa 24
-                </button>
-            <button ion-item>
-                <ion-icon name="md-clipboard" ></ion-icon>
-                          Mesa 55
-                </button>
+            <button *ngFor="let mesa of escuela.mesas" ion-item (click)="goToMesa()">
+                      <ion-icon name="md-clipboard" ></ion-icon>
+                      {{mesa.numero}}
+            </button>
         </ion-list>
         <button ion-button clear small icon-start (click)="map()"> <ion-icon name='pin'></ion-icon> Ubicación</button>
-    </ion-card>
+    </ion-card> -->
 
-    <ion-card>
-        <ion-card-header text-center>
-            Escuela 12 - La Boca - CABA
-        </ion-card-header>
 
-        <ion-list>
-            <button ion-item (click)="goToMesa()">
-                      <ion-icon name="md-clipboard" ></ion-icon>
-                      Mesa 345
-                    </button>
-
-            <button ion-item>
-                      <ion-icon name="md-clipboard" ></ion-icon>
-                        Mesa 542
-                    </button>
-            <button ion-item>
-                    <ion-icon name="md-clipboard" ></ion-icon>
-                              Mesa 522
-                    </button>
-        </ion-list>
-        <button ion-button clear small icon-start> <ion-icon name='pin'></ion-icon> Ubicación</button>
-    </ion-card>
-
-    <ion-card>
-        <ion-card-header text-center>
-            Escuela Superior 13 - Hurlingham - GBA
-        </ion-card-header>
-
-        <ion-list>
-            <button ion-item (click)="goToMesa()">
-                      <ion-icon name="md-clipboard" ></ion-icon>
-                      Mesa 144 
-                    </button>
-
-            <button ion-item>
-                      <ion-icon name="md-clipboard" ></ion-icon>
-                        Mesa 255
-                    </button>
-            <button ion-item>
-                    <ion-icon name="md-clipboard" ></ion-icon>
-                              Mesa 123
-                    </button>
-        </ion-list>
-        <button ion-button clear small icon-start> <ion-icon name='pin'></ion-icon> Ubicación</button>
-    </ion-card>
 
 
 </ion-content>

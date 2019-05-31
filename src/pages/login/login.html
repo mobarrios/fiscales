@@ -8,23 +8,58 @@
 
 <ion-content padding>
 
+    <!-- <form #loginForm="ngForm" (ngSubmit)="Ingresar()" autocomplete="off">
+        <ion-list>
+            <img src="../../assets/imgs/logo.jpg">
+            <ion-item>
+                <ion-label>Usuario</ion-label>
+                <ion-input [(ngModel)]="user" type="text" required></ion-input>
+            </ion-item>
 
-    <ion-list>
-        <img src="../../assets/imgs/logo.jpg">
-        <ion-item>
-            <ion-label>Usuario</ion-label>
-            <ion-input type="text"></ion-input>
-        </ion-item>
+            <ion-item>
+                <ion-label>Contraseña</ion-label>
+                <ion-input [(ngModel)]="pass" type="password" required></ion-input>
+            </ion-item>
 
-        <ion-item>
-            <ion-label>Contraseña</ion-label>
-            <ion-input type="password"></ion-input>
-        </ion-item>
+        </ion-list> -->
 
-    </ion-list>
+    <!-- <div padding>
+            <button ion-button block (click)="Ingresar()">Ingresar</button>
+        </div> -->
 
-    <div padding>
-        <button ion-button block (click)="Ingresar()">Ingresar</button>
-    </div>
+    <!-- <ion-col>
+            <button ion-button class="submit-btn" full type="submit" [disabled]="!loginForm.form.valid">Login
+            </button>
+        </ion-col>
+    </form> -->
 
-</ion-content> 
+    <ion-content padding>
+        <ion-row>
+            <ion-col text-center>
+                <img src="../../assets/imgs/logo.jpg" width="250px">
+            </ion-col>
+        </ion-row>
+        <form #loginForm="ngForm">
+            <ion-row>
+                <ion-col>
+                    <ion-list inset>
+                        <ion-item>
+                            <ion-input placeholder="Usuario" name="username" id="loginField" type="text" required [(ngModel)]="user" #email></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-input placeholder="Contraseña" name="password" id="passwordField" type="password" required [(ngModel)]="pass"></ion-input>
+                        </ion-item>
+                    </ion-list>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+                    <button ion-button full (click)="Ingresar()" [disabled]="!loginForm.form.valid">Login
+              </button>
+                </ion-col>
+            </ion-row>
+        </form>
+    </ion-content>
+
+</ion-content>

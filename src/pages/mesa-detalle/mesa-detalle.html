@@ -5,38 +5,119 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-    <ion-navbar>
-        <ion-title>Mesa 14</ion-title>
+    <ion-navbar color="primary">
+        <ion-title>Mesa : {{mesas.numero}}</ion-title>
     </ion-navbar>
-
 </ion-header>
 
-
 <ion-content>
-    <ion-card>
+
+    <!-- <ion-card>
         <ion-card-content>
             <p>Autoridades de Mesa: </p>
             <h4> - Juan Pérez</h4>
             <h4> - Romina Sanchez</h4>
         </ion-card-content>
-    </ion-card>
+    </ion-card> -->
 
     <ion-list>
-        <ion-item *ngFor="let item of listas  ">
-
+        <ion-item *ngFor="let lista of listas.listas">
             <ion-avatar item-start>
-                <!-- //<ion-icon style="font-size:80px" name="contact"></ion-icon> -->
-                <img src="{{item.img}}">
+                <!-- <ion-icon style="font-size:80px" name="contact"></ion-icon> -->
+                <img src="http://18.229.27.230/votar_back/public/{{lista.partidos.images[0].path}}">
             </ion-avatar>
-            <h2>{{item.nombre}}</h2>
-            <h3>{{item.persona}}</h3>
-            <p>{{item.porcentaje}} %</p>
-            <p>{{item.total}} Votos</p>
+            <h3>{{lista.partidos.nombre}}</h3>
+            <h2>{{lista.nombre}}</h2>
+            <p>{{lista.tipo_operativos.nombre}} </p>
+            <!-- <p>{{item.total}} Votos</p> -->
+            <div item-end>
+                <input size="4" type="text" name="{{lista.id}}" placeholder="votos">
+            </div>
         </ion-item>
+
+        <ion-item>
+            <ion-avatar item-start>
+                <ion-icon color="grey" style="font-size:50px" name="mail-open"></ion-icon>
+            </ion-avatar>
+            <h3>Votos Blancos</h3>
+            <div item-end>
+                <input size="4" type="text" name="" placeholder="votos">
+            </div>
+        </ion-item>
+
+        <ion-item>
+            <ion-avatar item-start>
+                <ion-icon color="grey" style="font-size:50px" name="mail-open"></ion-icon>
+            </ion-avatar>
+            <h3>Votos Nulos</h3>
+            <div item-end>
+                <input size="4" type="text" name="" placeholder="votos">
+            </div>
+        </ion-item>
+
+        <ion-item>
+            <ion-avatar item-start>
+                <ion-icon color="grey" style="font-size:50px" name="mail-open"></ion-icon>
+            </ion-avatar>
+            <h3>Votos Recurridos</h3>
+            <div item-end>
+                <input size="4" type="text" name="" placeholder="votos">
+            </div>
+        </ion-item>
+
+        <ion-item>
+            <ion-avatar item-start>
+                <ion-icon color="grey" style="font-size:50px" name="mail-open"></ion-icon>
+            </ion-avatar>
+            <h3>Votos Impugnados</h3>
+            <div item-end>
+                <input size="4" type="text" name="" placeholder="votos">
+            </div>
+        </ion-item>
+
+        <!-- <ion-item>
+            <ion-thumbnail item-start>
+                <ion-icon style="font-size:80px" name="contact"></ion-icon>
+                <img src="http://votar.coders.com.ar/public/uploads/partidos/images/1556131094Unidad Ciudadana.png">
+            </ion-thumbnail>
+            <h2>Unidad Ciudadana</h2>
+            <p>3412333 votos</p>
+            <h3 right>45%</h3>
+        </ion-item>
+
+        <ion-item>
+            <ion-thumbnail item-start>
+                <ion-icon style="font-size:80px" name="contact"></ion-icon>
+                <img src="http://votar.coders.com.ar/public/uploads/partidos/images/1556131131Cambiemos.png">
+            </ion-thumbnail>
+            <h2>Cambiemos</h2>
+            <p>413252 votos</p>
+            <h3 right>40%</h3>
+        </ion-item>
+
+        <ion-item>
+            <ion-thumbnail item-start>
+                <ion-icon style="font-size:80px" name="contact"></ion-icon>
+                <img src="http://votar.coders.com.ar/public/uploads/partidos/images/1556131111Frente de Izquierda.png">
+            </ion-thumbnail>
+            <h2>Frente de Izquierda</h2>
+            <p>4222 votos</p>
+            <h3 right>15%</h3>
+        </ion-item> -->
+
+
+
+
+
+
     </ion-list>
-    <div padding>
-        <button ion-button block (click)="openModal() ">Añadir Votos </button>
+
+    <div padding text-center>
+
+        <button color="danger" ion-button (click)="enviarVotos() "> Enviar Votos</button>
+        <button ion-button (click)="abrirCamara() ">Enviar Imagen </button>
+
     </div>
+
 
 </ion-content>

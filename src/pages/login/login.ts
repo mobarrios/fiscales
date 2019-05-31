@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';
+import { ConnectionProvider } from '../../providers/connection/connection';
+import { DbProvider } from '../../providers/db/db';
+
 
 /**
  * Generated class for the LoginPage page.
@@ -17,7 +20,16 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private user:string;
+  private pass:string;
+  public  error:string;
+ 
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public conn:ConnectionProvider,
+    public dbProv:DbProvider
+    ){
+ 
   }
 
   ionViewDidLoad() {
@@ -26,6 +38,32 @@ export class LoginPage {
 
   Ingresar()
   {
-    this.navCtrl.setRoot(TabsPage);
+    this.conn.getUsuarios(this.user,this.pass).subscribe(
+      (data) => { // Success
+         this.storeData(data);
+         
+         this.conn.getMesasByUsers(this.user).subscribe((data)=>{
+          
+           for(let r of data['results'])
+           {
+             this.dbProv.insertOperativosMesas(r);
+             this.dbProv.insertOperativos(r);
+             this.dbProv.insertMesas(r);
+          }
+       });
+        this.navCtrl.setRoot(TabsPage);   
+
+    },
+      (error) =>{
+        console.error(error);
+        this.error = error.statusText;
+      }
+    );
   }
+
+  storeData(token)
+  {
+    this.dbProv.getUser(this.user,token);
+  }
+
 }

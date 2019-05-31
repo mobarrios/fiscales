@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ɵConsole } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MesaDetallePage } from '../mesa-detalle/mesa-detalle';
 import { MapPage } from '../map/map';
+import { ConnectionProvider } from '../../providers/connection/connection';
+
 
 /**
  * Generated class for the MainPage page.
@@ -17,16 +19,44 @@ import { MapPage } from '../map/map';
 })
 export class MainPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+
+  operativos: any[] = [];
+  escuelas: any[] = [];
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,  public ConnectionPrv: ConnectionProvider) {
+  };
+  
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MainPage');
+
+    this.ConnectionPrv.getOperativos()
+    .subscribe(
+      (data) => { // Success
+        this.operativos = data['results'];
+        console.log( data['results']);
+      },
+      (error) =>{
+        console.error(error);
+      }
+    );
+
+    this.ConnectionPrv.getEscuelas()
+    .subscribe(
+      (data) => { // Success
+        this.escuelas = data['results'];
+      },
+      (error) =>{
+        console.error(error);
+      }
+    );
+
   }
 
-  goToMesa()
+  goToMesa(mesas_id,  operativos_id)
   {
-    this.navCtrl.push(MesaDetallePage);
+
+    this.navCtrl.push(MesaDetallePage,{mesas_id : mesas_id , operativos_id : operativos_id});
   }
 
   map()
