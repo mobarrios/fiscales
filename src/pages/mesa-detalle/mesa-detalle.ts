@@ -3,8 +3,8 @@ import { IonicPage, NavController, NavParams, ModalController, Platform, AlertCo
 import { Storage } from '@ionic/storage';
 import { ConnectionProvider } from '../../providers/connection/connection';
 import { Camera , CameraOptions} from '@ionic-native/camera';
-import { DbProvider } from '../../providers/db/db';
-import { SQLiteObject } from '@ionic-native/sqlite';
+// import { DbProvider } from '../../providers/db/db';
+// import { SQLiteObject } from '@ionic-native/sqlite';
 
 /**
  * Generated class for the MesaDetallePage page.
@@ -21,7 +21,7 @@ import { SQLiteObject } from '@ionic-native/sqlite';
 export class MesaDetallePage {
 
 
-  db: SQLiteObject = null;
+  // db: SQLiteObject = null;
 
 
    public porcentajeA:number = 0;
@@ -32,6 +32,12 @@ export class MesaDetallePage {
    public totalB;
    public totalC;
 
+   public blancos:number = 0;
+   public nulos:number = 0;
+   public recurridos:number = 0;
+   public impugnados:number = 0;
+
+
   //  public listas:object;
 
    public mesas_id:number;
@@ -41,6 +47,8 @@ export class MesaDetallePage {
    listas:any[] = [];
    listasAll:any[] = [];
 
+   imagenPreview:string;
+
 
 
 
@@ -48,14 +56,14 @@ export class MesaDetallePage {
                 public modalCtrl:ModalController , public storage:Storage, 
                 public platform:Platform , public connPrv:ConnectionProvider,
                 public alert:AlertController,
-                public camara:Camera,
-                public dB:DbProvider,
+                private camara:Camera,
+                // public dB:DbProvider,
                 ) {
 
       this.mesas_id = navParams.get('mesas_id');
       this.operativos_id = navParams.get('operativos_id');
 
-      dB.create();
+      // dB.create();
     
       this.getData();
   }
@@ -90,7 +98,9 @@ export class MesaDetallePage {
     .subscribe(
       (data) => { // Success
         this.listas = data['results'];
-this.listasAll = data['results'].listas;
+        this.listasAll = data['results'].listas;
+
+        console.log(data['results'].listas);
       },
       (error) =>{
         console.error(error);
@@ -106,23 +116,52 @@ this.listasAll = data['results'].listas;
 
           for(let list of this.listasAll)
           {
-              let total = (document.getElementsByName(list.id)[0]);
-              let lista = (document.getElementsByName(list.id)[0]);
+              let total = document.getElementsByName(list.id)[0];
+              let lista = document.getElementsByName(list.id)[0];              
+    
+              if(total['value'] > 500)
+              {
+                this.alert.create({
+                  title: '¡Votos Superados!',
+                  subTitle: '¡La cantidad de votos no deben superar los 500 !',
+            
+
+                  buttons: [
+                    {
+                      text: 'Ok',
+                      role: 'cancel'                      
+                    }
+                  ]
+                }).present();
+                return;
+              }
+
 
               //envia los datos x API
-               //this.connPrv.postVotos(total['value'],this.operativos_id,this.mesas_id,lista['name'])
-              // .subscribe(
-              //   (data) => { // Success
-              //     console.log('enviado');
-              //   },
-              //   (error) =>{
-              //     console.error(error);
-              //   }
-              // );
-              let sql = 'INSERT INTO votos(mesas_id, listas_id, operativos_id , total) VALUES(?,?,?,?)';
-              let qry = this.db.executeSql(sql, [this.mesas_id,lista['name'],this.operativos_id,total['value']]);
+               this.connPrv.postVotos(total['value'],this.operativos_id,this.mesas_id,lista['name'],0,0,0,0)
+              .subscribe(
+                (data) => { // Success
+                  console.log('enviado');
+                },
+                (error) =>{
+                  console.error(error);
+                }
+              );
+              // let sql = 'INSERT INTO votos(mesas_id, listas_id, operativos_id , total) VALUES(?,?,?,?)';
+              // let qry = this.db.executeSql(sql, [this.mesas_id,lista['name'],this.operativos_id,total['value']]);
 
           }
+
+          //envia los datos x API
+          this.connPrv.postVotos(0,this.operativos_id,this.mesas_id,99991, this.recurridos, this.nulos, this.impugnados, this.blancos)
+          .subscribe(
+            (data) => { // Success
+              console.log('enviado');
+            },
+            (error) =>{
+              console.error(error);
+            }
+          );
 
           this.alert.create({
             title: '¡Votos Enviados!',
@@ -141,8 +180,9 @@ this.listasAll = data['results'].listas;
 
     abrirCamara()
     {
+      console.log('abrio camara');
       const options: CameraOptions = {
-        quality: 100,
+        quality: 50,
         destinationType: this.camara.DestinationType.FILE_URI,
         encodingType: this.camara.EncodingType.JPEG,
         mediaType: this.camara.MediaType.PICTURE
@@ -151,9 +191,11 @@ this.listasAll = data['results'].listas;
       this.camara.getPicture(options).then((imageData) => {
        // imageData is either a base64 encoded string or a file URI
        // If it's base64 (DATA_URL):
-       let base64Image = 'data:image/jpeg;base64,' + imageData;
+       this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
+       console.log(imageData);
       }, (err) => {
        // Handle error
+       console.log('ERROR EN LA CAMARA', JSON.stringify(err));
       });
 
     }

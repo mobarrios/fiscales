@@ -38,17 +38,18 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
     TabsPage,
     MesaDetallePage,
     ModalVotosPage,
-    MapPage
+    MapPage,
+    
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(
-    //   {
-    //   name: '__mydb',
-    //      driverOrder: ['indexeddb', 'sqlite', 'websql']
-    // }
+      {
+      name: '__mydb',
+         driverOrder: ['indexeddb', 'sqlite', 'websql']
+    }
     ),
     // AgmCoreModule.forRoot({
     //   apiKey: 'AIzaSyBL6iZxjchld5wWphF_4FH8926oOsWs2F0'
@@ -63,7 +64,8 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
     TabsPage,
     MesaDetallePage,
     ModalVotosPage,
-    MapPage
+    MapPage,
+
   ],
   providers: [
     StatusBar,

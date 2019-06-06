@@ -17,8 +17,8 @@ export class ConnectionProvider {
   constructor(public http: HttpClient) {
     console.log('Hello ConnectionProvider Provider');
 
-    this.url = 'http://18.229.27.230/votar_back/public/api/';
-    //this.url = 'http://localhost/votar_back/public/api/';
+  this.url = 'http://18.229.27.230/votar_back/public/api/';
+  //this.url = 'http://localhost/votar_back/public/api/';
 
   }
 
@@ -29,13 +29,17 @@ export class ConnectionProvider {
   }
 
   getUsuarios(user:string, pass:string) {
+
+       // return this.http.get('http://votar.coders.com.ar/public/api/getOperativos');
+
+    
     //return this.http.get('https://randomuser.me/api/?results=25');
     return this.http.get(this.url + 'getUsers'+'/'+user+'/'+pass);
   }
 
-  getOperativos() {
+  getOperativos(userId) {
     //return this.http.get('https://randomuser.me/api/?results=25');
-    return this.http.get(this.url + 'getOperativos');
+    return this.http.get(this.url + 'getOperativos/'+userId);
   }
 
   getEscuelas() {
@@ -58,7 +62,7 @@ export class ConnectionProvider {
     return this.http.get(this.url +'getListas/'+id);
   }
 
-  postVotos(cantVotos:number,idOperativos:number, idMesas:number, idListas:number)
+  postVotos(cantVotos:number,idOperativos:number, idMesas:number, idListas:number, recurridos:number, nulos:number, impugnados:number,blancos:number)
   {
     let httpOptions = {
       headers: new HttpHeaders({
@@ -70,7 +74,7 @@ export class ConnectionProvider {
         })
     };
 
-    return this.http.get(this.url +'postVotos/'+cantVotos+'/'+idOperativos+'/'+idMesas+'/'+idListas);
+    return this.http.get(this.url +'postVotos/'+cantVotos+'/'+idOperativos+'/'+idMesas+'/'+idListas+'/'+recurridos+'/'+nulos+'/'+impugnados+'/'+blancos);
 
   }
 }

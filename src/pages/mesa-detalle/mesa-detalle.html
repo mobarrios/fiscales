@@ -24,14 +24,14 @@
         <ion-item *ngFor="let lista of listas.listas">
             <ion-avatar item-start>
                 <!-- <ion-icon style="font-size:80px" name="contact"></ion-icon> -->
-                <img src="http://18.229.27.230/votar_back/public/{{lista.partidos.images[0].path}}">
+                <img *ngIf=" lista.partidos.images.length > 0" src="http://18.229.27.230/votar_back/public/{{lista.partidos.images[0].path}}">
             </ion-avatar>
             <h3>{{lista.partidos.nombre}}</h3>
             <h2>{{lista.nombre}}</h2>
             <p>{{lista.tipo_operativos.nombre}} </p>
             <!-- <p>{{item.total}} Votos</p> -->
             <div item-end>
-                <input size="4" type="text" name="{{lista.id}}" placeholder="votos">
+                <input size="4" type="text" name="{{lista.id}}" placeholder="votos" type="number">
             </div>
         </ion-item>
 
@@ -41,7 +41,7 @@
             </ion-avatar>
             <h3>Votos Blancos</h3>
             <div item-end>
-                <input size="4" type="text" name="" placeholder="votos">
+                <input size="4" type="text" name="" placeholder="votos" [(ngModel)]="blancos">
             </div>
         </ion-item>
 
@@ -51,7 +51,7 @@
             </ion-avatar>
             <h3>Votos Nulos</h3>
             <div item-end>
-                <input size="4" type="text" name="" placeholder="votos">
+                <input size="4" type="text" name="" placeholder="votos" [(ngModel)]="nulos">
             </div>
         </ion-item>
 
@@ -61,7 +61,7 @@
             </ion-avatar>
             <h3>Votos Recurridos</h3>
             <div item-end>
-                <input size="4" type="text" name="" placeholder="votos">
+                <input size="4" type="text" name="" placeholder="votos" [(ngModel)]="recurridos">
             </div>
         </ion-item>
 
@@ -71,7 +71,7 @@
             </ion-avatar>
             <h3>Votos Impugnados</h3>
             <div item-end>
-                <input size="4" type="text" name="" placeholder="votos">
+                <input size="4" type="text" name="" placeholder="votos" [(ngModel)]="impugnados">
             </div>
         </ion-item>
 
@@ -115,9 +115,14 @@
     <div padding text-center>
 
         <button color="danger" ion-button (click)="enviarVotos() "> Enviar Votos</button>
-        <button ion-button (click)="abrirCamara() ">Enviar Imagen </button>
+        <button ion-button (click)="abrirCamara() ">Tomar Imagen </button>
 
     </div>
+
+
+    <ion-card *ngIf="imagenPreview">
+        <img [src]="imagenPreview">
+    </ion-card>
 
 
 </ion-content>

@@ -4,6 +4,8 @@ import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';
 import { ConnectionProvider } from '../../providers/connection/connection';
 import { DbProvider } from '../../providers/db/db';
+import { Storage } from '@ionic/storage';
+
 
 
 /**
@@ -27,43 +29,51 @@ export class LoginPage {
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     public conn:ConnectionProvider,
-    public dbProv:DbProvider
+    public dbProv:DbProvider,
+    private storage: Storage
     ){
  
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    
   }
 
   Ingresar()
   {
+
+
+
     this.conn.getUsuarios(this.user,this.pass).subscribe(
       (data) => { // Success
          this.storeData(data);
-         
-         this.conn.getMesasByUsers(this.user).subscribe((data)=>{
-          
-           for(let r of data['results'])
-           {
-             this.dbProv.insertOperativosMesas(r);
-             this.dbProv.insertOperativos(r);
-             this.dbProv.insertMesas(r);
-          }
-       });
+         console.log(data);
+      //    this.conn.getMesasByUsers(this.user).subscribe((data)=>{      
+      //      for(let r of data['results'])
+      //      {
+      //        this.dbProv.insertOperativosMesas(r);
+      //        this.dbProv.insertOperativos(r);
+      //        this.dbProv.insertMesas(r);
+      //     }
+      //  });
+
         this.navCtrl.setRoot(TabsPage);   
 
     },
       (error) =>{
-        console.error(error);
+        console.error(JSON.stringify(error));
         this.error = error.statusText;
       }
     );
   }
 
-  storeData(token)
+  storeData(data)
   {
-    this.dbProv.getUser(this.user,token);
+    //this.dbProv.getUser(this.user,token);
+    this.storage.set('user_id',data.id);
+    this.storage.set('user_name',data.user_name);
+    this.storage.set('token',data.remember_token);
   }
 
 }

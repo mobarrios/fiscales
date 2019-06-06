@@ -10,12 +10,6 @@
             <ion-icon name="mail-open"></ion-icon>
             Votar
         </ion-title>
-        <ion-buttons end>
-            <button (click)="logout()" ion-button icon-only color="royal">
-                  <ion-icon  name="log-out"></ion-icon>
-                </button>
-        </ion-buttons>
-
     </ion-navbar>
 
 </ion-header>
@@ -24,20 +18,34 @@
 <ion-content>
     <ion-card *ngFor="let operativo of operativos">
         <ion-card-header text-center>
-            <strong text-lg>{{operativo.operativos_nombre}}</strong>
+            <strong text-lg>{{operativo.nombre}}</strong>
         </ion-card-header>
-
         <!-- <ion-card>
-            <div *ngFor="let escuela of operativo.escuelas"></div>
+            <ion-item-divider text-center color="light">
+                <small>Listas</small>
+            </ion-item-divider>
+            <ion-list>
+                <ion-item *ngFor="let lista of operativo.listas">
+                    <ion-thumbnail item-start>
+                        <img src="http://18.229.27.230/votar_back/public/{{lista.partidos.images[0].path}}" width="14px">
+                    </ion-thumbnail>
+                    <h3>{{lista.tipo_operativos.nombre}}</h3>
+                    <h4>{{lista.nombre}}</h4>
+                    <p>{{lista.partidos.nombre}}</p>
+                </ion-item>
+            </ion-list>
         </ion-card> -->
         <ion-card>
+            <div *ngFor="let escuela of operativo.escuelas"></div>
+        </ion-card>
+        <ion-card *ngFor="let escuela of operativo.escuelas">
             <ion-item-divider text-center color="light">
-                <small>{{operativo.escuelas_nombre}}</small>
+                <small>{{escuela.nombre}}</small>
             </ion-item-divider>
 
-            <button ion-item (click)="goToMesa(operativo.mesas_id, operativo.operativos_id)">
+            <button ion-item *ngFor="let mesa of escuela.mesas" (click)="goToMesa(mesa.id, operativo.id)">
                         <ion-icon color="primary" name="md-clipboard" item-start></ion-icon>
-                        <small>{{operativo.mesas_numero}}</small>
+                        <small>{{mesa.numero}}</small>
                 </button>
             <ion-row>
                 <!-- <ion-col>
