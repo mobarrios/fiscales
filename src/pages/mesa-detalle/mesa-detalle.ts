@@ -48,6 +48,7 @@ export class MesaDetallePage {
    listasAll:any[] = [];
 
    imagenPreview:string;
+   enviado:string;
 
 
 
@@ -62,6 +63,20 @@ export class MesaDetallePage {
 
       this.mesas_id = navParams.get('mesas_id');
       this.operativos_id = navParams.get('operativos_id');
+
+
+      this.storage.get(this.operativos_id+'_'+this.mesas_id).then((data)=>{
+        if(data)
+         {
+          this.alert.create({
+            title: '¡Esta mesa ya fue cargada !',
+            subTitle: '¡Sus votos han sido enviados correctamente al centro de computos!',
+            buttons: ['OK']
+          }).present();
+
+          this.navCtrl.pop();
+         }
+      });
 
       // dB.create();
     
@@ -81,6 +96,8 @@ export class MesaDetallePage {
 
   getData()
   {
+
+
     // get mesas
     this.connPrv.getMesas(this.mesas_id)
     .subscribe(
@@ -153,7 +170,7 @@ export class MesaDetallePage {
           }
 
           //envia los datos x API
-          this.connPrv.postVotos(0,this.operativos_id,this.mesas_id,99991, this.recurridos, this.nulos, this.impugnados, this.blancos)
+          this.connPrv.postVotos(0,this.operativos_id,this.mesas_id,99, this.recurridos, this.nulos, this.impugnados, this.blancos)
           .subscribe(
             (data) => { // Success
               console.log('enviado');
@@ -169,7 +186,7 @@ export class MesaDetallePage {
             buttons: ['OK']
           }).present();
 
-
+          this.storage.set( this.operativos_id +'_'+this.mesas_id,'true');
 
           this.navCtrl.pop();
       

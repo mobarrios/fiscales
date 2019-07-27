@@ -24,14 +24,14 @@
         <ion-item *ngFor="let lista of listas.listas">
             <ion-avatar item-start>
                 <!-- <ion-icon style="font-size:80px" name="contact"></ion-icon> -->
-                <img *ngIf=" lista.partidos.images.length > 0" src="http://18.229.27.230/votar_back/public/{{lista.partidos.images[0].path}}">
+                <img *ngIf=" lista.partidos.images.length > 0" src="http://fiscales.kuix.la/{{lista.partidos.images[0].path}}">
             </ion-avatar>
             <h3>{{lista.partidos.nombre}}</h3>
             <h2>{{lista.nombre}}</h2>
             <p>{{lista.tipo_operativos.nombre}} </p>
             <!-- <p>{{item.total}} Votos</p> -->
             <div item-end>
-                <input size="4" type="text" name="{{lista.id}}" placeholder="votos" type="number">
+                <input size="4" type="text" name="{{lista.id}}" placeholder="votos">
             </div>
         </ion-item>
 
@@ -115,7 +115,12 @@
     <div padding text-center>
 
         <button color="danger" ion-button (click)="enviarVotos() "> Enviar Votos</button>
-        <button ion-button (click)="abrirCamara() ">Tomar Imagen </button>
+        <button ion-button (click)="abrirCamara() ">
+            <ion-icon slot="start" name="camera"></ion-icon> 
+        </button>
+        <button ion-button (click)="abrirGaleria() ">
+                <ion-icon slot="start" name="images"></ion-icon> 
+            </button>
 
     </div>
 

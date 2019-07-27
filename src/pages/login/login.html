@@ -34,9 +34,14 @@
     </form> -->
 
     <ion-content padding>
-        <ion-row>
+        <ion-row style="width: 530px;">
             <ion-col text-center>
-                <img src="assets/imgs/logo.jpg" width="250px">
+                <!-- <img src="assets/imgs/logo.jpg" width="250px"> -->
+                <h1>
+                    <ion-icon color="primary" name="md-checkbox-outline"> </ion-icon>
+                    <strong>Fiscales</strong>
+                </h1>
+
             </ion-col>
         </ion-row>
         <form #loginForm="ngForm">
@@ -55,11 +60,11 @@
             <ion-row>
                 <ion-col>
                     <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-                    <button ion-button full (click)="Ingresar()" [disabled]="!loginForm.form.valid">Login
+                    <button ion-button full (click)="Ingresar()" [disabled]="!loginForm.form.valid">Ingreso
               </button>
                 </ion-col>
             </ion-row>
-            v0.0.7
+            v0.0.10
         </form>
     </ion-content>
 

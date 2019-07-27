@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Header } from 'ionic-angular';
 
 /*
   Generated class for the ConnectionProvider provider.
@@ -17,9 +16,10 @@ export class ConnectionProvider {
   constructor(public http: HttpClient) {
     console.log('Hello ConnectionProvider Provider');
 
-  this.url = 'http://18.229.27.230/votar_back/public/api/';
+  //this.url = 'http://18.229.27.230/votar_back/public/api/';
   //this.url = 'http://localhost/votar_back/public/api/';
 
+  this.url = 'http://fiscales.kuix.la/api/';
   }
 
 
@@ -64,15 +64,15 @@ export class ConnectionProvider {
 
   postVotos(cantVotos:number,idOperativos:number, idMesas:number, idListas:number, recurridos:number, nulos:number, impugnados:number,blancos:number)
   {
-    let httpOptions = {
-      headers: new HttpHeaders({
-          'Content-Type':  'application/json',
-          'X-XSRF-TOKEN': 'dassdasdasdad131312312',
+    // let httpOptions = {
+    //   headers: new HttpHeaders({
+    //       'Content-Type':  'application/json',
+    //       'X-XSRF-TOKEN': 'dassdasdasdad131312312',
 
-          // 'Authorization': 'Bearer '+ this._us.getToken(),
-          'Access-Control-Allow-Origin':'*',
-        })
-    };
+    //       // 'Authorization': 'Bearer '+ this._us.getToken(),
+    //       'Access-Control-Allow-Origin':'*',
+    //     })
+    // };
 
     return this.http.get(this.url +'postVotos/'+cantVotos+'/'+idOperativos+'/'+idMesas+'/'+idListas+'/'+recurridos+'/'+nulos+'/'+impugnados+'/'+blancos);
 
