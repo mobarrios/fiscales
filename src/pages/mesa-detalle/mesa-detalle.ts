@@ -3,6 +3,10 @@ import { IonicPage, NavController, NavParams, ModalController, Platform, AlertCo
 import { Storage } from '@ionic/storage';
 import { ConnectionProvider } from '../../providers/connection/connection';
 import { Camera , CameraOptions} from '@ionic-native/camera';
+import { ImagePicker ,ImagePickerOptions} from '@ionic-native/image-picker';
+// import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+
+
 // import { DbProvider } from '../../providers/db/db';
 // import { SQLiteObject } from '@ionic-native/sqlite';
 
@@ -45,6 +49,10 @@ export class MesaDetallePage {
 
    mesas:any[] = [];
    listas:any[] = [];
+  
+   listas1:any[] = [];
+   listas2:any[] = [];
+
    listasAll:any[] = [];
 
    imagenPreview:string;
@@ -58,6 +66,9 @@ export class MesaDetallePage {
                 public platform:Platform , public connPrv:ConnectionProvider,
                 public alert:AlertController,
                 private camara:Camera,
+                private imgPicker:ImagePicker,
+                // private transfer: FileTransfer
+                
                 // public dB:DbProvider,
                 ) {
 
@@ -117,7 +128,19 @@ export class MesaDetallePage {
         this.listas = data['results'];
         this.listasAll = data['results'].listas;
 
-        console.log(data['results'].listas);
+        for(let l of  data['results'].listas)
+        {
+          if(l.tipo_operativos_id == 1)
+          {
+            this.listas1.push(l);
+          }
+          if(l.tipo_operativos_id == 2)
+         {
+          this.listas2.push(l);
+         } 
+        }
+
+        console.log(this.listas1);
       },
       (error) =>{
         console.error(error);
@@ -141,8 +164,6 @@ export class MesaDetallePage {
                 this.alert.create({
                   title: '¡Votos Superados!',
                   subTitle: '¡La cantidad de votos no deben superar los 500 !',
-            
-
                   buttons: [
                     {
                       text: 'Ok',
@@ -194,15 +215,34 @@ export class MesaDetallePage {
     
     }
 
+    abrirGaleria()
+    {
+      const options: ImagePickerOptions = {
+        quality: 50,
+        outputType : 1,
+        maximumImagesCount : 1,
+      }
+
+      this.imgPicker.getPictures(options).then((results) => {
+        for (var i = 0; i < results.length; i++) {
+            console.log('Image URI: ' + results[i]);
+            this.imagenPreview = 'data:image/jpeg;base64,' + results[i];
+        }
+      }, (err) => { 
+        console.log('ERROR EN LA GALERIA', JSON.stringify(err));
+      });
+
+    }
 
     abrirCamara()
     {
       console.log('abrio camara');
+
       const options: CameraOptions = {
         quality: 50,
-        destinationType: this.camara.DestinationType.FILE_URI,
-        encodingType: this.camara.EncodingType.JPEG,
-        mediaType: this.camara.MediaType.PICTURE
+        destinationType: 0,
+        encodingType: 0,
+        mediaType: 0,
       }
       
       this.camara.getPicture(options).then((imageData) => {
@@ -216,6 +256,31 @@ export class MesaDetallePage {
       });
 
     }
+
+
+
+
+    // cropUpload() {
+   
+    //               const fileTransfer: FileTransferObject = this.transfer.create();
+    //               const uploadOpts: FileUploadOptions = {
+    //                  fileKey: 'file',
+    //                  fileName: '11'
+    //               };
+    
+    //               fileTransfer.upload(newImage, 'http://192.168.0.7:3000/api/upload', uploadOpts)
+    //                .then((data) => {
+    //                  console.log(data);
+    //                  console.log(this.respData);
+    //                }, (err) => {
+    //                  console.log(err);
+    //                });
+               
+    // }
+
+
+
+
     // if(this.platform.is('cordova'))
     //   {
     //     this.storage.get('1').then((val) => {

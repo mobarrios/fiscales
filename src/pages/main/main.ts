@@ -45,13 +45,15 @@ export class MainPage {
     
     this.storage.get('user_id').then((val) => 
       {
-        console.log(val);
+        // console.log(val);
         this.ConnectionPrv.getOperativos(val)
           .subscribe(
             (data) => { 
               // Success
               this.operativos = data['results'];
               console.log(data['results']);
+
+              
             },
             (error) =>{
               console.error(error);

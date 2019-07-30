@@ -20,16 +20,142 @@
         </ion-card-content>
     </ion-card> -->
 
-    <ion-list>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title text-center>Presidente - VicePresidente</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+                <ion-item *ngFor="let lista of listas1">
+                    <ion-avatar item-start>
+                        <!-- <ion-icon style=" font-size:80px " name="contact "></ion-icon> -->
+                        <img *ngIf=" lista.partidos.images.length> 0" src="http://fiscales.kuix.la/{{lista.partidos.images[0].path}}">
+                    </ion-avatar>
+                    <h3>{{lista.partidos.nombre}}</h3>
+                    <h2>{{lista.nombre}}</h2>
+                    <!-- <p>{{lista.tipo_operativos.nombre}} </p> -->
+                    <!-- <p>{{item.total}} Votos</p> -->
+                    <div item-end>
+                        <input size="4" type="text" name="{{lista.id}}" placeholder="votos">
+                    </div>
+                </ion-item>
+
+                <ion-item>
+                    <ion-avatar item-start>
+                        <ion-icon color="grey" style="font-size:50px" name="mail-open"></ion-icon>
+                    </ion-avatar>
+                    <h3>Blancos</h3>
+                    <div item-end>
+                        <input size="4" type="text" name="" placeholder="votos" [(ngModel)]="blancos">
+                    </div>
+                </ion-item>
+
+                <ion-item>
+                    <ion-avatar item-start>
+                        <ion-icon color="grey" style="font-size:50px" name="mail-open"></ion-icon>
+                    </ion-avatar>
+                    <h3>Nulos</h3>
+                    <div item-end>
+                        <input size="4" type="text" name="" placeholder="votos" [(ngModel)]="nulos">
+                    </div>
+                </ion-item>
+
+                <ion-item>
+                    <ion-avatar item-start>
+                        <ion-icon color="grey" style="font-size:50px" name="mail-open"></ion-icon>
+                    </ion-avatar>
+                    <h3>Recurridos</h3>
+                    <div item-end>
+                        <input size="4" type="text" name="" placeholder="votos" [(ngModel)]="recurridos">
+                    </div>
+                </ion-item>
+
+                <ion-item>
+                    <ion-avatar item-start>
+                        <ion-icon color="grey" style="font-size:50px" name="mail-open"></ion-icon>
+                    </ion-avatar>
+                    <h3>Impugnados</h3>
+                    <div item-end>
+                        <input size="4" type="text" name="" placeholder="votos" [(ngModel)]="impugnados">
+                    </div>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title text-center>Gobernadores</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+                <ion-item *ngFor="let lista of listas2">
+                    <ion-avatar item-start>
+                        <!-- <ion-icon style=" font-size:80px " name="contact "></ion-icon> -->
+                        <img *ngIf=" lista.partidos.images.length> 0" src="http://fiscales.kuix.la/{{lista.partidos.images[0].path}}">
+                    </ion-avatar>
+                    <h3>{{lista.partidos.nombre}}</h3>
+                    <h2>{{lista.nombre}}</h2>
+                    <!-- <p>{{lista.tipo_operativos.nombre}} </p> -->
+                    <!-- <p>{{item.total}} Votos</p> -->
+                    <div item-end>
+                        <input size="4" type="text" name="{{lista.id}}" placeholder="votos">
+                    </div>
+                </ion-item>
+
+                <ion-item>
+                    <ion-avatar item-start>
+                        <ion-icon color="grey" style="font-size:50px" name="mail-open"></ion-icon>
+                    </ion-avatar>
+                    <h3>Blancos</h3>
+                    <div item-end>
+                        <input size="4" type="text" name="" placeholder="votos" [(ngModel)]="blancos">
+                    </div>
+                </ion-item>
+
+                <ion-item>
+                    <ion-avatar item-start>
+                        <ion-icon color="grey" style="font-size:50px" name="mail-open"></ion-icon>
+                    </ion-avatar>
+                    <h3>Nulos</h3>
+                    <div item-end>
+                        <input size="4" type="text" name="" placeholder="votos" [(ngModel)]="nulos">
+                    </div>
+                </ion-item>
+
+                <ion-item>
+                    <ion-avatar item-start>
+                        <ion-icon color="grey" style="font-size:50px" name="mail-open"></ion-icon>
+                    </ion-avatar>
+                    <h3>Recurridos</h3>
+                    <div item-end>
+                        <input size="4" type="text" name="" placeholder="votos" [(ngModel)]="recurridos">
+                    </div>
+                </ion-item>
+
+                <ion-item>
+                    <ion-avatar item-start>
+                        <ion-icon color="grey" style="font-size:50px" name="mail-open"></ion-icon>
+                    </ion-avatar>
+                    <h3>Impugnados</h3>
+                    <div item-end>
+                        <input size="4" type="text" name="" placeholder="votos" [(ngModel)]="impugnados">
+                    </div>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
+    <!-- <ion-list>
         <ion-item *ngFor="let lista of listas.listas">
             <ion-avatar item-start>
-                <!-- <ion-icon style="font-size:80px" name="contact"></ion-icon> -->
                 <img *ngIf=" lista.partidos.images.length > 0" src="http://fiscales.kuix.la/{{lista.partidos.images[0].path}}">
             </ion-avatar>
             <h3>{{lista.partidos.nombre}}</h3>
             <h2>{{lista.nombre}}</h2>
             <p>{{lista.tipo_operativos.nombre}} </p>
-            <!-- <p>{{item.total}} Votos</p> -->
             <div item-end>
                 <input size="4" type="text" name="{{lista.id}}" placeholder="votos">
             </div>
@@ -73,9 +199,9 @@
             <div item-end>
                 <input size="4" type="text" name="" placeholder="votos" [(ngModel)]="impugnados">
             </div>
-        </ion-item>
+        </ion-item> -->
 
-        <!-- <ion-item>
+    <!-- <ion-item>
             <ion-thumbnail item-start>
                 <ion-icon style="font-size:80px" name="contact"></ion-icon>
                 <img src="http://votar.coders.com.ar/public/uploads/partidos/images/1556131094Unidad Ciudadana.png">
@@ -110,15 +236,15 @@
 
 
 
-    </ion-list>
+    <!-- </ion-list> -->
 
     <div padding text-center>
 
-        <button color="danger" ion-button (click)="enviarVotos() "> Enviar Votos</button>
-        <button ion-button (click)="abrirCamara() ">
+        <button color="danger" ion-button (click)="enviarVotos()"> Enviar Votos</button>
+        <button ion-button (click)="abrirCamara()">
             <ion-icon slot="start" name="camera"></ion-icon> 
         </button>
-        <button ion-button (click)="abrirGaleria() ">
+        <button ion-button (click)="abrirGaleria()">
                 <ion-icon slot="start" name="images"></ion-icon> 
             </button>
 

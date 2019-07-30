@@ -87,6 +87,10 @@
     </edit-config>
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <plugin name="cordova-sqlite-storage" spec="^2.4.0" />
+    <plugin name="cordova-plugin-telerik-imagepicker" spec="^2.3.3">
+        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="send images to database" />
+    </plugin>
     <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="8.0.0" />
+    <plugin name="cordova-plugin-firebase" spec="^2.0.5" />
 </widget>

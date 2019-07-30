@@ -19,6 +19,7 @@ import { ConnectionProvider } from '../providers/connection/connection';
 import { HttpClientModule } from '@angular/common/http';
 
 import { Camera } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
 
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
@@ -73,8 +74,9 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ConnectionProvider,
     Camera,
+    ImagePicker,
     DbProvider,
-    SQLite
+    SQLite,
     // Geolocation
   ]
 })
